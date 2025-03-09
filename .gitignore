@@ -4,7 +4,7 @@ rustc-ice-*
 # Used by CI to be able to push:
 /.github/deploy_key
 out
-
+mir_dump
 # Compiled files
 *.o
 *.d

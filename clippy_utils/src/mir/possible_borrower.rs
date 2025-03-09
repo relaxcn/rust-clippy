@@ -177,6 +177,7 @@ pub struct PossibleBorrowerMap<'b, 'tcx> {
     pub bitset: (DenseBitSet<mir::Local>, DenseBitSet<mir::Local>),
 }
 
+// 关键的入口点
 impl<'b, 'tcx> PossibleBorrowerMap<'b, 'tcx> {
     pub fn new(cx: &LateContext<'tcx>, mir: &'b mir::Body<'tcx>) -> Self {
         let possible_origin = {
