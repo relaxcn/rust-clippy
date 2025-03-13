@@ -1,0 +1,16 @@
+{
+ "lsp": {
+    "rust-analyzer": {
+      "initialization_options": {
+        "rustc": {
+            "source": "discover"
+        },
+        "linkedProjects": [
+            "./Cargo.toml",
+            "clippy_dev/Cargo.toml",
+            "lintcheck/Cargo.toml",
+        ]
+      }
+    }
+  }
+}

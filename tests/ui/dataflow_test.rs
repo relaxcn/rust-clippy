@@ -1,21 +1,16 @@
 #![warn(clippy::dataflow_test)]
 
-
-
-fn ff(s: &String) -> &String {
-    ff1(s)
-}
-
-fn ff1(s: &String) -> &String {
-    s
-}
+use std::io::{self, Write};
 
 fn foo() {
-    let s = String::from("hello");
+    let mut input = String::new();
 
-    let s2 = &s;
+    io::stdin().read_line(&mut input).unwrap();  // input is marked as tainted
 
-    let _s3 = ff1(&s);
+    let input2 = &input; // data flow tracking - not support now.
+
+    // Violation
+    let file = std::fs::File::open(input2).unwrap();
 }
 
 fn main() {
