@@ -1,7 +1,7 @@
 use clippy_utils::consts::{ConstEvalCtxt, Constant, FullInt};
 use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::source::snippet_with_applicability;
-use clippy_utils::{clip, peel_hir_expr_refs, unsext};
+use clippy_utils::{clip, peel_hir_expr_refs, unsext, fn_def_id, peel_ref_operators};
 use rustc_errors::Applicability;
 use rustc_hir::{BinOpKind, Expr, ExprKind, Node};
 use rustc_lint::LateContext;
@@ -20,6 +20,13 @@ pub(crate) fn check<'tcx>(
     if !is_allowed(cx, op, left, right) {
         return;
     }
+    // is_allowed 需要增加一个阻止条件，那就是有一个操作数是 Detault::default()
+    // dbg!("allow");
+    // dbg!(left.span);
+    dbg!(right);
+
+    let def_id_opt = fn_def_id(cx, peel_ref_operators(cx, right));
+    dbg!(def_id_opt);
 
     // we need to know whether a ref is coerced to a value
     // if a ref is coerced, then the suggested lint must deref it
